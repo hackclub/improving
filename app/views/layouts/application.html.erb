@@ -21,9 +21,25 @@
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+  <body class="min-h-screen">
+  <div class="navbar bg-base-200 shadow-sm">
+  <div class="flex-1">
+    <a class="btn btn-ghost text-xl">Improving</a>
+  </div>
+  <div class="flex-none">
+    <ul class="menu menu-horizontal px-1">
+      <li><a href="/gallery">Gallery</a></li>
+      <li><a href="/submit">Submit</a></li>
+    </ul>
+  </div>
+</div>
+    <main class="">
       <%= yield %>
     </main>
+    <footer class="footer sm:footer-horizontal footer-center bg-base-200 text-base-content p-4">
+  <aside>
+    <p>Made by Neon in <%= Time.now.year %> - Hackclub YSWS</p>
+  </aside>
+</footer>
   </body>
 </html>
