@@ -12,6 +12,6 @@ class ApplicationController < ActionController::Base
 
   def redirect_to_blocker_page
     # Define how `xyz` is determined, e.g., from params, session, or a method
-    "/secret_code"
+    "/countdown"
   end 
 end

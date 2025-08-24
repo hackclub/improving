@@ -1,4 +1,7 @@
-- [ ] the code obvs - mostly the /submit and the countdown till ??
+- [x] the code obvs - for hints
+- [ ] the code obvs - mostly the countdown
+- [ ] the code obvs - mostly the psql stuff
+
 - [x] rsvp form
 - [ ] advertisment
 - [ ] budget work out

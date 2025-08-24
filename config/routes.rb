@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get "/gallery" => "gallery#index", as: :gallery
   get "/submit" => "submit#index", as: :submit
   get "/secret_code" => "secret_code#index", as: :secret_code
-  
+  get "/countdown", to: "countdown#index"
   namespace :api do
     get '/verify', to: 'verify#verify'
   end
