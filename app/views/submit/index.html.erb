@@ -1,1 +1,28 @@
-RUBY HFUD
+<%= csrf_meta_tags %>
+<%# css isnt real #%>
+<form>
+<%# YSWS DB FORMAT FYI #%>
+
+</form>
+<script>
+const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+fetch('/api/verify'+window.location.search, {
+headers: {
+    "User-Agent": "Improving/v1.0 +hackclub/client",
+     "X-CSRF-Token": csrfToken
+}  
+}).then(r=>r.json()).then(dbb=> {
+    const d = dbb.body
+    if(d.error) {
+        if(d.error == "Submit token already used" || d.error.includes('Missing required parameters:')) {
+        window.location.href = "https://submit.hackclub.com/improving"
+        return;
+    }
+    }
+    console.log(d, 'omg data')
+
+    alert("uhirhunrhunerh")
+
+    debugger;  
+})
+</script>

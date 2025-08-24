@@ -1,0 +1,13 @@
+- [ ] the code obvs - mostly the /submit and the countdown till ??
+- [x] rsvp form
+- [ ] advertisment
+- [ ] budget work out
+- [ ] admin ui
+- [ ] find a fraud dept member to help (1)
+- [ ] uhhh get hq poc to look at it lmao
+- [ ] deploy to coolify before ^
+- [ ] get dns pr
+- [ ] ummm #toolbox mayb (would need to ask fonz)
+- [ ] pr to ysws site and get hq poc to merge it
+- [ ] hcb :pf: - mostly js use a hcb v4 app or hcb cookie again :pensive:
+- [ ] foss it! (and.. a readme ofc)
