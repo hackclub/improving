@@ -8,6 +8,11 @@ Rails.application.routes.draw do
   get "/" => "welcome#index", as: :welcome
   get "/gallery" => "gallery#index", as: :gallery
   get "/submit" => "submit#index", as: :submit
+
+  namespace :api do
+    get '/verify', to: 'verify#verify'
+  end
+
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
