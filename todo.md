@@ -1,16 +1,14 @@
 - [x] the code obvs - for hints
-- [ ] the code obvs - mostly the countdown
+- [x] the code obvs - mostly the countdown
 - [ ] the code obvs - mostly the psql stuff
 
 - [x] rsvp form
 - [ ] advertisment
-- [ ] budget work out
+- [x] budget work out
 - [ ] admin ui
-- [ ] find a fraud dept member to help (1)
-- [ ] uhhh get hq poc to look at it lmao
-- [ ] deploy to coolify before ^
-- [ ] get dns pr
-- [ ] ummm #toolbox mayb (would need to ask fonz)
+- [x] uhhh get hq poc to look at it lmao
+- [x] deploy to coolify before ^
+- [x] get dns pr
 - [ ] pr to ysws site and get hq poc to merge it
 - [ ] hcb :pf: - mostly js use a hcb v4 app or hcb cookie again :pensive:
 - [ ] foss it! (and.. a readme ofc)

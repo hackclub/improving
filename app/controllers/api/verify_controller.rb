@@ -5,6 +5,7 @@ module Api
   class VerifyController < ApplicationController
     protect_from_forgery with: :exception
     before_action :set_no_cache_headers
+
     def verify
       # Forward all query parameters to the external API
       uri = URI('https://submit.hackclub.com/api/verify')
@@ -18,10 +19,13 @@ module Api
     rescue StandardError => e
       render json: { error: e.message }, status: :internal_server_error
     end
-  end
+
+    private
+
     def set_no_cache_headers
-    response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
-    response.headers["Pragma"] = "no-cache"
-    response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+      response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+      response.headers["Pragma"] = "no-cache"
+      response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+    end
   end
 end

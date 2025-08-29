@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   private
 
   def redirect_if_blocky
-    redirect_to redirect_to_blocker_page if redirect_to_blocker_page
+    # redirect_to redirect_to_blocker_page if redirect_to_blocker_page
   end
 
   def redirect_to_blocker_page
