@@ -1,7 +1,7 @@
 <%= csrf_meta_tags %>
 <%# css isnt real #%>
 <%# YSWS DB FORMAT FYI #%>
-<%= form_with url: "/", method: :post, local: true, class: "space-y-6 max-w-4xl mx-auto p-6" do |f| %>
+<%= form_with url: "/submit", method: :post, local: true, class: "space-y-6 max-w-4xl mx-auto p-6" do |f| %>
 
   <!-- Section 1: Code + Demo URLs -->
   <div class=" rounded-2xl shadow p-6 space-y-4">
@@ -9,11 +9,11 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div>
         <%= f.label :code_url, "Code URL", class: "block text-sm font-medium" %>
-        <%= f.url_field :code_url, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500" %>
+        <%= f.url_field :code_url, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500",required: true %>
       </div>
       <div>
         <%= f.label :demo_url, "Demo URL", class: "block text-sm font-medium" %>
-        <%= f.url_field :demo_url, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500" %>
+        <%= f.url_field :demo_url, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500",required: true %>
       </div>
     </div>
   </div>
@@ -23,19 +23,19 @@
     <h2 class="text-xl font-semibold">Who are you?</h2>
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
       <div>
-        <%= f.label :first_name, "First Name", class: "block text-sm font-medium" %>
+        <%= f.label :first_name, "First Name", class: "block text-sm font-medium"  %>
         <%= f.text_field :first_name, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500" %>
       </div>
       <div>
-        <%= f.label :last_name, "Last Name", class: "block text-sm font-medium" %>
+        <%= f.label :last_name, "Last Name", class: "block text-sm font-medium",required: true  %>
         <%= f.text_field :last_name, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500" %>
       </div>
       <div>
-        <%= f.label :email, "Email", class: "block text-sm font-medium" %>
+        <%= f.label :email, "Email", class: "block text-sm font-medium",required: true %>
         <%= f.email_field :email, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500" %>
       </div>
      <div>
-  <%= f.label :slack_id, "Slack ID", class: "block text-sm font-medium" %>
+  <%= f.label :slack_id, "Slack ID", class: "block text-sm font-medium",required: true %>
   <%= f.text_field :slack_id, 
         value: @slack_id,  # <-- auto-fill from controller
         class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500" %>
@@ -48,11 +48,11 @@
     <h2 class="text-xl font-semibold">Your Ship</h2>
     <div class="space-y-4">
       <div>
-        <%= f.label :ship_name, "Ship Name", class: "block text-sm font-medium" %>
+        <%= f.label :ship_name, "Ship Name", class: "block text-sm font-medium",required: true %>
         <%= f.text_field :ship_name, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500" %>
       </div>
       <div>
-        <%= f.label :description, "Description", class: "block text-sm font-medium" %>
+        <%= f.label :description, "Description", class: "block text-sm font-medium",required: true %>
         <%= f.text_area :description, rows: 3, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500" %>
       </div>
       <div class="flex items-center gap-2">
@@ -61,7 +61,7 @@
       </div>
       <div>
         <%= f.label :video_upload, "Upload Video", class: "block text-sm font-medium" %>
-        <%= f.file_field :video_upload, accept: "video/*", class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2" %>
+        <%= f.file_field :video_upload, accept: "video/*", class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2",required: true %>
       </div>
     </div>
   </div>
@@ -158,8 +158,8 @@ headers: {
 }  
 }).then(r=>r.json()).then(dbb=> {
     const d = dbb.body
-    if(d.error) {
-        if(d.error == "Submit token already used" || d.error.includes('Missing required parameters:')) {
+    if(d.error || !d.identity_response) {
+        if(d.error == "Submit token already used" || d.error.includes('Missing required parameters:') || !d.identity_response) {
         window.location.href = "https://submit.hackclub.com/improving"
         return;
     }
@@ -167,6 +167,7 @@ headers: {
     console.log(d, 'omg data')
     // time to autofill
     const info = d.identity_response
+    
     document.querySelector("#first_name").value = info.first_name
     document.querySelector("#last_name").value = info.last_name
     document.querySelector("#email").value = new URLSearchParams(window.location.search).get('email')
@@ -185,8 +186,9 @@ headers: {
       document.querySelector('#code_url').oninput = (e) => {
     const textValue = e.target.value
    const match = textValue.match(/github\.com\/([a-zA-Z0-9-]+)(?:\/|$)/)
+   console.log(match)
     if (match) {
-  console.log(match[1]); // "saahil-dutta"
+  console.log(match[1]);
   document.querySelector("#github_username").value = match[1]
 }
       }
@@ -198,7 +200,7 @@ headers: {
         // uhhhh error
         return;
     }
-    fetch("https://hackatime.hackclub.com/api/v1/users/${slackId}/stats?start_date=2025-08-30&end_date=2025-09-30&features=projects").then(r=>r.json()).then(json => {
+    fetch(`https://hackatime.hackclub.com/api/v1/users/${slackId}/stats?start_date=2025-08-30&end_date=2025-09-30&features=projects`).then(r=>r.json()).then(json => {
       if(json.error) {
         // uhhhh error
         // TODO add error msg as select option or js disable the select menu
@@ -225,9 +227,19 @@ headers: {
             opt.innerText = `${n} - ${hrs} hours`
             document.querySelector('#hackatime_project_select').appendChild(opt)
           }
-          } else {
-            // todo add thingy saying no projects found
           }
+  document.querySelector('#hackatime_project_select').onchange = (e) => {
+  const selectedValue = e.target.value; // the new value of the select
+
+  // do some logic to compute hours
+  const hours = json.data.projects.find(p => p.name == selectedValue)?.hours;
+
+  // update the element
+  const hoursElement = document.querySelector('#hours_collected');
+
+  // If it's a text element like <span> or <div>
+  hoursElement.value = hours;
+  }
         }
       }
     })
@@ -236,7 +248,7 @@ headers: {
     onSlackIdUpdate, 500
     )
     // then add it to the list if user isnt banned please also error handle
-
+    
     debugger;  
 })
 </script>
