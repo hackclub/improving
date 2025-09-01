@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get "/" => "welcome#index", as: :welcome
   get "/gallery" => "gallery#index", as: :gallery
   get "/submit" => "submit#index", as: :submit
+  post "/submit" => "submit#create", as: :submit_create
   get "/secret_code" => "secret_code#index", as: :secret_code
   get "/countdown", to: "countdown#index"
   namespace :api do

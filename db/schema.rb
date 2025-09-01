@@ -10,12 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_17_222831) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_01_023136) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_catalog.plpgsql"
+
   create_table "submissions", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "code_url"
+    t.string "demo_url"
+    t.string "email"
+    t.string "slack_id"
+    t.string "ship_name"
+    t.boolean "is_hardware", default: false
+    t.string "video_upload"
+    t.date "birthday"
+    t.string "street"
+    t.string "address_line2"
+    t.string "city"
+    t.string "state"
+    t.string "zip"
+    t.string "country"
+    t.string "shipping_name"
+    t.string "github_username"
+    t.string "hackatime_project"
+    t.integer "hours_collected", default: 0
+    t.string "desired_prize"
+    t.boolean "in_gallery", default: false
+    t.index ["email"], name: "index_submissions_on_email"
+    t.index ["slack_id"], name: "index_submissions_on_slack_id", unique: true
   end
 end

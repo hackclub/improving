@@ -3,7 +3,7 @@ require 'uri'
 
 module Api
   class VerifyController < ApplicationController
-    protect_from_forgery with: :exception
+    # protect_from_forgery with: :exception
     before_action :set_no_cache_headers
 
     def verify

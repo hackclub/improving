@@ -13,7 +13,7 @@
       </div>
       <div>
         <%= f.label :demo_url, "Demo URL", class: "block text-sm font-medium" %>
-        <%= f.url_field :demo_url, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500",required: true %>
+        <%= f.url_field :demo_url, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500",required: true  %>
       </div>
     </div>
   </div>
@@ -24,21 +24,21 @@
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
       <div>
         <%= f.label :first_name, "First Name", class: "block text-sm font-medium"  %>
-        <%= f.text_field :first_name, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500" %>
+        <%= f.text_field :first_name, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500", required: true  %>
       </div>
       <div>
-        <%= f.label :last_name, "Last Name", class: "block text-sm font-medium",required: true  %>
-        <%= f.text_field :last_name, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500" %>
+        <%= f.label :last_name, "Last Name", class: "block text-sm font-medium"  %>
+        <%= f.text_field :last_name, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500",required: true  %>
       </div>
       <div>
-        <%= f.label :email, "Email", class: "block text-sm font-medium",required: true %>
-        <%= f.email_field :email, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500" %>
+        <%= f.label :email, "Email", class: "block text-sm font-medium"  %>
+        <%= f.email_field :email, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500",required: true  %>
       </div>
      <div>
   <%= f.label :slack_id, "Slack ID", class: "block text-sm font-medium",required: true %>
   <%= f.text_field :slack_id, 
         value: @slack_id,  # <-- auto-fill from controller
-        class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500" %>
+        class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500", required: true  %>
 </div>
     </div>
   </div>
@@ -49,15 +49,15 @@
     <div class="space-y-4">
       <div>
         <%= f.label :ship_name, "Ship Name", class: "block text-sm font-medium",required: true %>
-        <%= f.text_field :ship_name, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500" %>
+        <%= f.text_field :ship_name, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500", required: true  %>
       </div>
       <div>
         <%= f.label :description, "Description", class: "block text-sm font-medium",required: true %>
-        <%= f.text_area :description, rows: 3, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500" %>
+        <%= f.text_area :description, rows: 3, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500", required: true  %>
       </div>
       <div class="flex items-center gap-2">
         <%= f.check_box :is_hardware, class: "h-4 w-4 text-indigo-600 border-gray-300 rounded" %>
-        <%= f.label :is_hardware, "This is a hardware project" %>
+        <%= f.label :is_hardware, "This is a hardware project", required: true  %>
       </div>
       <div>
         <%= f.label :video_upload, "Upload Video", class: "block text-sm font-medium" %>
@@ -72,52 +72,52 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div>
         <%= f.label :birthday, "Birthday", class: "block text-sm font-medium" %>
-        <%= f.date_field :birthday, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500" %>
+        <%= f.date_field :birthday, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500", required: true  %>
       </div>
    <div class=" rounded-2xl shadow p-6 space-y-4">
   <h2 class="text-xl font-semibold">Address</h2>
   <div class="space-y-4">
     <div>
       <%= f.label :street, "Street Address", class: "block text-sm font-medium" %>
-      <%= f.text_field :street, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500" %>
+      <%= f.text_field :street, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500", required: true  %>
     </div>
 
     <div>
       <%= f.label :address_line2, "Address Line 2", class: "block text-sm font-medium" %>
-      <%= f.text_field :address_line2, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500" %>
+      <%= f.text_field :address_line2, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500", required: true  %>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <div>
         <%= f.label :city, "City", class: "block text-sm font-medium" %>
-        <%= f.text_field :city, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500" %>
+        <%= f.text_field :city, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500", required: true  %>
       </div>
       <div>
         <%= f.label :state, "State/Province", class: "block text-sm font-medium" %>
-        <%= f.text_field :state, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500" %>
+        <%= f.text_field :state, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500", required: true  %>
       </div>
       <div>
         <%= f.label :zip, "ZIP/Postal Code", class: "block text-sm font-medium" %>
-        <%= f.text_field :zip, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500" %>
+        <%= f.text_field :zip, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500", required: true  %>
       </div>
     </div>
 
     <div>
       <%= f.label :country, "Country", class: "block text-sm font-medium" %>
-      <%= f.text_field :country, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500" %>
+      <%= f.text_field :country, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500", required: true  %>
       <!-- Or use a select if you want a dropdown -->
-      <%#= f.select :country, ISO3166::Country.all.map { |c| [c.name, c.alpha2] }, {}, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500" %>
+      <%#= f.select :country, ISO3166::Country.all.map { |c| [c.name, c.alpha2] }, {}, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500", required: true  %>
     </div>
   </div>
 </div>
 
       <div>
         <%= f.label :shipping_name, "Shipping Name", class: "block text-sm font-medium" %>
-        <%= f.text_field :shipping_name, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500" %>
+        <%= f.text_field :shipping_name, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500", required: true  %>
       </div>
       <div>
         <%= f.label :github_username, "GitHub Username", class: "block text-sm font-medium" %>
-        <%= f.text_field :github_username, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500" %>
+        <%= f.text_field :github_username, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500", required: true  %>
       </div>
     <div>
   <%= f.label :hackatime_project, "Hackatime Project", class: "block text-sm font-medium" %>
@@ -125,7 +125,7 @@
 </div>
 
         <%= f.label :hours_collected, "Hours Collected", class: "block text-sm font-medium" %>
-        <%= f.number_field :hours_collected, step: 1, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500" %>
+        <%= f.number_field :hours_collected, step: 1, class: "mt-1 block w-full rounded-xl border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-indigo-500", value: 0  %>
       </div>
     </div>
   </div>
@@ -175,7 +175,7 @@ headers: {
     const addr = info.addresses[0]
     if(addr) {
         document.querySelector('#street').value = addr.line_1
-        document.querySelector('#address_line2').value = addr.line_2
+     if( addr.line_2)  document.querySelector('#address_line2').value = addr.line_2
         document.querySelector('#city').value = addr.city
         document.querySelector('#state').value = addr.state
         document.querySelector('#zip').value = addr.postal_code

@@ -15,7 +15,42 @@ class SubmitController < ApplicationController
       @slack_id = nil
     end
   end
+  def create
+    # print all info from req body to user
+    Rails.logger.info "Submission received: #{params.inspect}"
+    # Here you can add any additional processing or response logic
+    # TODO: add thumbnail
+    # after that ur done pretty much tho
+ Submission.create!(
+  code_url:        params[:code_url],
+  demo_url:        params[:demo_url],
+  first_name:      params[:first_name],
+  last_name:       params[:last_name],
+  email:           params[:email],
+  slack_id:        params[:slack_id],
+  ship_name:       params[:ship_name],
+  description:     params[:description],
+  is_hardware:     ActiveModel::Type::Boolean.new.cast(params[:is_hardware]),
+  # video_upload:    params[:video_upload],   # or .attach if Active Storage
 
+  birthday:        params[:birthday],
+  street:          params[:street],
+  address_line2:   params[:address_line2],
+  city:            params[:city],
+  state:           params[:state],
+  zip:             params[:zip],
+  country:         params[:country],
+  shipping_name:   params[:shipping_name],
+  github_username: params[:github_username],
+  hackatime_project: params[:hackatime_project],
+  hours_collected: params[:hours_collected],
+  desired_prize:   params[:desired_prize],
+  in_gallery:      ActiveModel::Type::Boolean.new.cast(params[:in_gallery])
+)
+
+    # now send it to the client
+    render plain: "Thanks for submitting! lack of html is intentional... maybe i should improve..."
+  end
   private
 
   def get_slack_id_by_email(email)
