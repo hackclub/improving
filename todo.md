@@ -1,11 +1,11 @@
 - [x] the code obvs - for hints
 - [x] the code obvs - mostly the countdown
-- [ ] the code obvs - mostly the psql stuff
+- [x] the code obvs - mostly the psql stuff
 
 - [x] rsvp form
-- [ ] advertisment
+- [x] advertisment
 - [x] budget work out
-- [ ] admin ui
+- [ ] admin ui - https://chatgpt.com/c/68b70e59-a69c-8332-9dcf-2ece066b9167
 - [x] uhhh get hq poc to look at it lmao
 - [x] deploy to coolify before ^
 - [x] get dns pr

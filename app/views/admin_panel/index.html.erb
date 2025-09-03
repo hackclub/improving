@@ -1,0 +1,21 @@
+
+  <div class="admin-container">
+    <h1>Projects</h1>
+    <% @projects.each do |project| %>
+<div class="card card-border bg-base-100 w-96">
+  <div class="card-body">
+    <h2 class="card-title"><%= project.ship_name %></h2>
+    <p><%= project.description %> -  by <%= project.slack_id %></p>
+    <div class="card-actions justify-end">
+      <button class="btn btn-primary">Approve</button>
+      <button class="btn btn-danger">Reject</button>
+    </div>
+  </div>
+</div>
+    <% end %>
+  </div>
+
+
+<script>
+document.querySelector('html').className = `border-2 md:border-4 border-dashed border-orange-300 box-border text-sm md:text-base`
+</script>

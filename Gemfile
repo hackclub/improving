@@ -67,3 +67,5 @@ gem "tailwindcss-ruby", "~> 4.1"
 gem "tailwindcss-rails", "~> 4.3"
 
 gem "postgresql", "~> 1.0"
+
+gem "bcrypt", "~> 3.1"

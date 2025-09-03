@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   post "/submit" => "submit#create", as: :submit_create
   get "/secret_code" => "secret_code#index", as: :secret_code
   get "/countdown", to: "countdown#index"
+  get "/admin", to: "admin_panel#index", as: :admin_panel
   namespace :api do
     get '/verify', to: 'verify#verify'
   end
