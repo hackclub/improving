@@ -1,6 +1,7 @@
 require 'net/http'
 require 'uri'
 require 'json'
+require 'streamio-ffmpeg'
 
 class SubmitController < ApplicationController
   protect_from_forgery with: :exception
@@ -8,50 +9,86 @@ class SubmitController < ApplicationController
   SLACK_BOT_TOKEN = ENV['SLACK_BOT_TOKEN']
 
   def index
-    email = params[:email]  # grab the email from query param
-    if email.present?
-      @slack_id = get_slack_id_by_email(email)
-    else
-      @slack_id = nil
+    email = params[:email]
+    @slack_id = email.present? ? get_slack_id_by_email(email) : nil
+  end
+
+  def create
+    Rails.logger.info "Submission received: #{params.inspect}"
+
+    begin
+      submission = Submission.new(submission_params)
+
+      if params[:video_upload].present?
+        # Attach the uploaded video
+        submission.video_upload.attach(params[:video_upload])
+
+        # Save so the blob exists
+        submission.save!
+
+        # Download video into tempfile
+        Tempfile.create(["video", ".mp4"]) do |file|
+          file.binmode
+          file.write(submission.video_upload.download)
+          file.flush
+
+          # Generate thumbnail
+          movie = FFMPEG::Movie.new(file.path)
+          thumb_path = Rails.root.join("tmp", "thumb_#{SecureRandom.hex}.jpg")
+          movie.screenshot(thumb_path.to_s, seek_time: 3, resolution: "320x240")
+
+          # Attach thumbnail
+          submission.thumbnail.attach(
+            io: File.open(thumb_path),
+            filename: File.basename(thumb_path),
+            content_type: "image/jpeg"
+          )
+
+          File.delete(thumb_path) if File.exist?(thumb_path)
+        end
+      else
+        submission.save!
+      end
+
+      render plain: "Thanks for submitting!"
+    rescue ActiveRecord::RecordInvalid => e
+      Rails.logger.error("Submission save failed: #{e.message}")
+      render plain: "Error saving submission: #{e.record.errors.full_messages.join(', ')}",
+             status: :unprocessable_entity
+    rescue => e
+      Rails.logger.error("Unexpected error in submission: #{e.message}")
+      render plain: "An unexpected error occurred.", status: :internal_server_error
     end
   end
-  def create
-    # print all info from req body to user
-    Rails.logger.info "Submission received: #{params.inspect}"
-    # Here you can add any additional processing or response logic
-    # TODO: add thumbnail
-    # after that ur done pretty much tho
- Submission.create!(
-  code_url:        params[:code_url],
-  demo_url:        params[:demo_url],
-  first_name:      params[:first_name],
-  last_name:       params[:last_name],
-  email:           params[:email],
-  slack_id:        params[:slack_id],
-  ship_name:       params[:ship_name],
-  description:     params[:description],
-  is_hardware:     ActiveModel::Type::Boolean.new.cast(params[:is_hardware]),
-  # video_upload:    params[:video_upload],   # or .attach if Active Storage
 
-  birthday:        params[:birthday],
-  street:          params[:street],
-  address_line2:   params[:address_line2],
-  city:            params[:city],
-  state:           params[:state],
-  zip:             params[:zip],
-  country:         params[:country],
-  shipping_name:   params[:shipping_name],
-  github_username: params[:github_username],
-  hackatime_project: params[:hackatime_project],
-  hours_collected: params[:hours_collected],
-  desired_prize:   params[:desired_prize],
-  in_gallery:      ActiveModel::Type::Boolean.new.cast(params[:in_gallery])
-)
-
-    # now send it to the client
-    render plain: "Thanks for submitting! lack of html is intentional... maybe i should improve..."
-  end
   private
+
+  def submission_params
+    {
+      code_url:        params[:code_url],
+      demo_url:        params[:demo_url],
+      first_name:      params[:first_name],
+      last_name:       params[:last_name],
+      email:           params[:email],
+      slack_id:        params[:slack_id],
+      ship_name:       params[:ship_name],
+      description:     params[:description],
+      is_hardware:     ActiveModel::Type::Boolean.new.cast(params[:is_hardware]),
+      birthday:        params[:birthday],
+      street:          params[:street],
+      address_line2:   params[:address_line2],
+      city:            params[:city],
+      state:           params[:state],
+      zip:             params[:zip],
+      country:         params[:country],
+      shipping_name:   params[:shipping_name],
+      github_username: params[:github_username],
+      hackatime_project: params[:hackatime_project],
+      hours_collected: params[:hours_collected],
+      desired_prize:   params[:desired_prize],
+      in_gallery:      ActiveModel::Type::Boolean.new.cast(params[:in_gallery])
+    }
+  end
 
   def get_slack_id_by_email(email)
     uri = URI("https://slack.com/api/users.lookupByEmail?email=#{email}")

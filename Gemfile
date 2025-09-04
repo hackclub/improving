@@ -69,3 +69,5 @@ gem "tailwindcss-rails", "~> 4.3"
 gem "postgresql", "~> 1.0"
 
 gem "bcrypt", "~> 3.1"
+
+gem "streamio-ffmpeg", "~> 3.0"
