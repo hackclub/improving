@@ -3,6 +3,9 @@ class AdminPanelController <  ApplicationController
   def index
     # You can add logic here if needed
     @projects = Submission.all
+    @is_admin = (request.authorization == ActionController::HttpAuthentication::Basic.encode_credentials(ENV["ADMIN_USER"], ENV["ADMIN_PASS"]))
+    @is_editor = (request.authorization == ActionController::HttpAuthentication::Basic.encode_credentials(ENV["EDITOR_USER"], ENV["EDITOR_PASS"]))
+    
   end
 
   def authenticate
