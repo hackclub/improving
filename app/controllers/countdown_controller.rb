@@ -3,7 +3,7 @@ class CountdownController < ApplicationController
 
   def index
     est_zone = ActiveSupport::TimeZone["Eastern Time (US & Canada)"]
-    target_time = est_zone.local(2025, 8, 30, 0, 0, 0) 
+    target_time = est_zone.local(2025, 9, 6, 0, 0, 0) 
     now = Time.current.in_time_zone(est_zone)
 
     diff = target_time - now
