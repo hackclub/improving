@@ -81,9 +81,9 @@ Rails.application.configure do
 
   # Allow CSRF requests from these origins
   config.action_controller.forgery_protection_origin_check = true
-  config.action_controller.allowed_request_origins = [
-    "https://improving.hackclub.com",
-  ]
+  # config.action_controller.allowed_request_origins = [
+  #   "https://improving.hackclub.com",
+  # ]
   # Enable DNS rebinding protection and other `Host` header attacks.
   # config.hosts = [
   #   "example.com",     # Allow requests from example.com
