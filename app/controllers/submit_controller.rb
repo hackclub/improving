@@ -17,6 +17,9 @@ class SubmitController < ApplicationController
     Rails.logger.info "Submission received: #{params.inspect}"
 
     begin
+      # check if prev submission
+      if Submission.exists?(email: params[:email])
+        render plain: "You have already submitted a project with this email and ship name.",
       submission = Submission.new(submission_params)
 
       if params[:video_upload].present?
